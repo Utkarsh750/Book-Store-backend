@@ -4,14 +4,15 @@ import mongoose from "mongoose";
 import { Book } from './models/bookModels.js'
 import booksRoute from "./routes/bookRoutes.js"
 import cors from 'cors'
-
 const app = express();
 app.use(cors())
+import config from 'dotenv'
+config.config()
 
 // Middleware for parsing request body
 app.use(express.json())
 app.use('/books', booksRoute)
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Middleware for handling CORS Policy
 // Option 1: Allow All Origins with Default of cors(*)
@@ -28,6 +29,7 @@ app.get("/", (request, response) => {
   return response.status(234).send("Welcome to MERN project");
 });
 
+console.log(process.env.MONGODB_URL, "hello heh")
 
 mongoose
   .connect(process.env.MONGODB_URL)
